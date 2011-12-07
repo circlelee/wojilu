@@ -20,6 +20,8 @@ namespace wojilu.Members.Users.Interface {
         DataPage<User> GetFollowingPage( int userId );
         DataPage<User> GetFollowingPage( int userId, int pageSize );
         DataPage<User> GetFollowersPage( int targetId );
+        DataPage<User> GetFriendsAndFollowers(int userId);
+        DataPage<User> GetFriendsAndFollowing(int userId);
 
         List<User> GetRecentFollowers( int targetId, int count );
         List<User> GetRecentFollowing( int userId, int count );

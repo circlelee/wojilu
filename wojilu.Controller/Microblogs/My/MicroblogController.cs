@@ -57,8 +57,8 @@ namespace wojilu.Web.Controller.Microblogs.My {
             List<User> visitors = visitorService.GetRecent( 9, ctx.owner.Id );
             bindUsers( visitors, "visitor" );
 
-            set( "moreFollowers", to( new wojilu.Web.Controller.Users.FriendController().FollowerList ) );
-            set( "moreVisitors", to( new wojilu.Web.Controller.Users.VisitorController().Index ) );
+            set("moreFollowers", to(new wojilu.Web.Controller.Microblogs.FriendController().FollowerList));
+            set("moreVisitors", to(new wojilu.Web.Controller.Microblogs.FriendController().VisitorList));
         }
 
         public void Home() {

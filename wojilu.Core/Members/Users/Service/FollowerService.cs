@@ -140,6 +140,31 @@ namespace wojilu.Members.Users.Service {
             return results;
         }
 
+        /// <summary>
+        /// 新加
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public virtual DataPage<User> GetFriendsAndFollowers(int userId)
+        {
+            DataPage<User> friendList = friendService.GetFriendsPage(userId);
+            DataPage<User> followers = GetFollowersPage(userId);
+            friendList.Results.AddRange(followers.Results);
+            return friendList;
+        }
+
+        /// <summary>
+        /// 新加
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public virtual DataPage<User> GetFriendsAndFollowing(int userId)
+        {
+            DataPage<User> friendList = friendService.GetFriendsPage(userId);
+            DataPage<User> followering = GetFollowingPage(userId);
+            friendList.Results.AddRange(followering.Results);
+            return friendList;
+        }
 
         public virtual DataPage<User> GetFollowingPage( int userId ) {
             return GetFollowingPage( userId, 20 );

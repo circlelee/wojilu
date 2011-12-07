@@ -65,8 +65,8 @@ namespace wojilu.Web.Controller.Microblogs.My {
             set( "user.FollowingCount", (user.FriendCount + user.FollowingCount) );
             set( "user.FollowersCount", (user.FollowersCount + user.FriendCount) );
 
-            set( "user.FollowingLink", t2( new Users.FriendController().FollowingList ) );
-            set( "user.FollowerLink", t2( new Users.FriendController().FollowerList ) );
+            set("user.FollowingLink", t2(new Microblogs.FriendController().FollowingList));
+            set("user.FollowerLink", t2(new Microblogs.FriendController().FollowerList));
         }
 
         private void bindUsers( List<User> users, String blockName ) {

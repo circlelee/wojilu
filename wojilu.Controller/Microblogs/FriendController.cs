@@ -20,6 +20,7 @@ namespace wojilu.Web.Controller.Microblogs {
         public IFriendService friendService { get; set; }
         public IUserService userService { get; set; }
         public IBlacklistService blacklistService { get; set; }
+        public IVisitorService visitorService { get; set; }
 
         public FriendController() {
             followService = new FollowerService();
@@ -27,6 +28,24 @@ namespace wojilu.Web.Controller.Microblogs {
             userService = new UserService();
             blacklistService = new BlacklistService();
             LayoutControllerType = typeof( MicroblogController );
+            visitorService = new VisitorService();
+        }
+
+        /// <summary>
+        /// 访问者列表
+        /// </summary>
+        public void VisitorList()
+        {
+            if (ctx.viewer.HasPrivacyPermission(ctx.owner.obj, UserPermission.Friends.ToString()) == false)
+            {
+                echo(lang("exVisitNoPermission"));
+                return;
+            }
+            view("FriendList");
+            set("listName", lang("recentVisitors"));
+            DataPage<User> list = visitorService.GetPage(ctx.owner.Id, 50);
+            bindUsers(list.Results, "list");
+            set("page", list.PageBar);
         }
 
         public void FriendList() {
@@ -51,7 +70,8 @@ namespace wojilu.Web.Controller.Microblogs {
 
             view( "FriendList" );
             set( "listName", lang( "myFollowing" ) );
-            DataPage<User> list = followService.GetFollowingPage( ctx.owner.Id );
+            //DataPage<User> list = followService.GetFollowingPage( ctx.owner.Id );
+            DataPage<User> list = followService.GetFriendsAndFollowing(ctx.owner.Id);
             bindUsers( list.Results, "list" );
             set( "page", list.PageBar );
         }
@@ -65,7 +85,8 @@ namespace wojilu.Web.Controller.Microblogs {
 
             view( "FriendList" );
             set( "listName", lang( "myFollowed" ) );
-            DataPage<User> list = followService.GetFollowersPage( ctx.owner.Id );
+            //DataPage<User> list = followService.GetFollowersPage( ctx.owner.Id );
+            DataPage<User> list = followService.GetFriendsAndFollowers(ctx.owner.Id);
             bindUsers( list.Results, "list" );
             set( "page", list.PageBar );
         }

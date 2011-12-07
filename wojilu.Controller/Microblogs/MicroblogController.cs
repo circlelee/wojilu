@@ -55,7 +55,7 @@ namespace wojilu.Web.Controller.Microblogs {
             bindUsers( visitors, "visitor" );
 
             set( "moreFollowers", to( new wojilu.Web.Controller.Microblogs.FriendController().FollowerList ) );
-            set( "moreVisitors", to( new wojilu.Web.Controller.Users.VisitorController().Index ) );
+            set("moreVisitors", to(new wojilu.Web.Controller.Microblogs.FriendController().VisitorList));
         }
 
 
